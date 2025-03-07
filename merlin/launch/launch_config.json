@@ -2,9 +2,9 @@
     "world_size": 2,
     "master_addr": "10.10.10.1",
     "master_port": "9091",
-    "username": "muchichen",
+    "username": "kai",
     "shared_exec_args": {
-        "prompt_path": "/home/muchichen/ntu_paslab_llm/merlin/prompts/mixtral_8x7b_128.json",
+        "prompt_path": "/home/kai/ntu_paslab_llm/merlin/prompts/mixtral_8x7b_128.json",
         "n_prompts": 64,
         "batch_size": 16,
         "max_tokens": 128,
