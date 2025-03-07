@@ -429,24 +429,18 @@ class MoeLayer(nn.Module):
     def moe_infer(self, x, topk_ids, topk_weight):
         cnts = topk_ids.new_zeros((topk_ids.shape[0], 8))
         cnts = cnts.scatter_(1, topk_ids, 1).sum(dim=0)
-        # cnts = cnts.cpu().numpy()
+        cnts = cnts.cpu().numpy()
         tokens_per_expert = (
-            cnts[self.expert_start_idx : self.expert_end_idx].cpu().numpy()
+            cnts[self.expert_start_idx : self.expert_end_idx]
         )
-        # # for fidx
-        # cnts = numpy.insert(cnts, 0, 0)
+        # for fidx
+        cnts = numpy.insert(cnts, 0, 0)
         
-        # # prefix sum numpy version
-        # for i in range(1, cnts.shape[0]):
-        #     cnts[i] += cnts[i - 1]
-        # fidx = cnts[self.expert_start_idx]
-        # bidx = cnts[self.expert_end_idx]
-        
-        fidx = cnts[: self.expert_start_idx].sum().item()
-        bidx = fidx + cnts[self.expert_start_idx : self.expert_end_idx].sum().item()
-        idxs = topk_ids.view(-1).argsort()
-        token_idxs = idxs[fidx:bidx] // topk_ids.shape[1]
-        sorted_tokens = x[token_idxs]
+        # prefix sum numpy version
+        for i in range(1, cnts.shape[0]):
+            cnts[i] += cnts[i - 1]
+        fidx = cnts[self.expert_start_idx]
+        bidx = cnts[self.expert_end_idx]
         
         # get token position
         idxs = topk_ids.view(-1).argsort()
