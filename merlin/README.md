@@ -12,7 +12,7 @@
 
 * install required packages from pypi channel
     ```shell
-    pip install -r requirements.txt
+    pip install -r mixtral_requirements.txt
     ```
 
 ## 2. generate ssh key pair
