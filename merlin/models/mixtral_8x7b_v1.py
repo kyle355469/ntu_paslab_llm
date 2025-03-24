@@ -587,15 +587,20 @@ class Transformer(nn.Module):
             weights_only=True,
             mmap=True,
         )
-        
+        ep = json.load(
+            "../partitioners/designs/2node-ep-tp.json"
+        )
+        for i in ep["design"]:
+            if i["node_id"] == node_id:
+                count = i["ep_size"]
         # expert setup
         ep_tag = int(list(experts.keys())[0][2])
         if ep_tag:
             expert_start_idx = ep_tag
-            expert_end_idx = ep_tag + 5
+            expert_end_idx = ep_tag + count
         else:
             expert_start_idx = ep_tag
-            expert_end_idx = ep_tag + 3
+            expert_end_idx = ep_tag + count
         
         with torch.device("meta"):
             model = Transformer(args=model_args, experts=Experts(experts), expert_start_idx=expert_start_idx, expert_end_idx=expert_end_idx)

@@ -1,0 +1,15 @@
+{
+    "split_attn_weights": false,
+    "design": [
+        {
+            "node_id": 0,
+            "n_experts": 3,
+            "ep_size": 3
+        },
+        {
+            "node_id": 1,
+            "n_experts": 5,
+            "ep_size": 5
+        }
+    ]
+}
