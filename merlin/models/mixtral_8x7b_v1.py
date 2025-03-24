@@ -588,7 +588,7 @@ class Transformer(nn.Module):
             mmap=True,
         )
         ep = json.load(
-            "../partitioners/designs/2node-ep-tp.json"
+            "/home/kaintu_paslab_llm/merlin/partitioners/designs/2node-ep-tp.json"
         )
         for i in ep["design"]:
             if i["node_id"] == node_id:
