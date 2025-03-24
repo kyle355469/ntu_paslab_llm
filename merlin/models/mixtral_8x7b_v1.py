@@ -587,12 +587,14 @@ class Transformer(nn.Module):
             weights_only=True,
             mmap=True,
         )
-        # ep = json.load(
-        #     "../partitioners/designs/2node-ep-tp.json"
-        # )
-        # for i in ep["design"]:
-        #     if i["node_id"] == node_id:
-        #         count = i["ep_size"]
+        ep = json.load(
+            "../partitioners/designs/2node-ep-tp.json"
+        )
+        for i in ep["design"]:
+            if i["node_id"] == node_id:
+                count = i["ep_size"]
+        print(count)
+        exit()
         # expert setup
         ep_tag = int(list(experts.keys())[0][2])
         if ep_tag:
